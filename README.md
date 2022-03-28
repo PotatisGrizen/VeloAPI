@@ -1,10 +1,10 @@
 <h1 align="center">
-xFun API
+Velocity API
 </h1>
 
 ## Description
 
-xFunserver.net API for authorization, stats, staffs, etc.
+Velocitysky.net API for authorization, stats, staffs, etc.
 
 
 ## Installation
@@ -29,7 +29,7 @@ $ npm run start:prod
 ## Contact
 
 - Author - [PotatisGrizen](https://potatisgrizen.com)
-- Website - [https://xfunserver.net](https://xfunserver.net/)
+- Mail - [potatis@potatisgrizen.com](mailto:potatis@potatisgrizen.com)
 - Discord - @PotatisGrizen#8661
 
 
