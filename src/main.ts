@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import * as session from 'express-session';
 import * as passport from 'passport';
 import { TypeormStore } from 'connect-typeorm';
 import { getRepository } from 'typeorm';
+import { AppModule } from './app.module';
 import { Session } from './utils/typeorm/entities/Session.entity';
 
 async function bootstrap() {

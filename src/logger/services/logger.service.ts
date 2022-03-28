@@ -22,6 +22,9 @@ export class LoggerService implements ILoggerService {
     ];
   }
 
+  /**
+   * TODO: Setup so all the search params can be used.
+   */
   async getPlayerChat(req: Request): Promise<Player_Chat[]> {
     const builder = this.playerChatRepo.createQueryBuilder();
     const query = req.query;

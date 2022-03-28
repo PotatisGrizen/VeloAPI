@@ -8,4 +8,7 @@ export const APIentities = [User, Session];
 
 export const Loggerentities = [Player_Chat, Player_Commands];
 
+/**
+ * TODO: Setup all the entities for Litebans
+ */
 export const Bansentities = [Bans];

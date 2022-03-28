@@ -5,13 +5,12 @@ import {
   Param,
   ParseIntPipe,
   Req,
-  Res,
   UseGuards,
 } from '@nestjs/common';
 import { ROUTES, SERVICES } from '../../utils/constants';
 import { IBansService } from '../interfaces/bans.interface';
 import { isAdminGuard } from '../utils/Guards';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 
 @Controller(ROUTES.BANS)
 export class BansController {
@@ -30,4 +29,8 @@ export class BansController {
   async getSingleBansData(@Param('id', ParseIntPipe) id: number) {
     return this.bansService.getSingleBansData(id);
   }
+
+  /**
+   * Todo: Setup routes for Kicks / Mutes / Warnings
+   */
 }

@@ -27,4 +27,8 @@ export class LoggerController {
   async getPlayerCommands(@Req() req: Request) {
     return this.loggerService.getPlayerCommands(req);
   }
+
+  /**
+   * TODO: Setup the routes for getting single data points.
+   */
 }
