@@ -32,7 +32,3 @@ $ npm run start:prod
 - Mail - [potatis@potatisgrizen.com](mailto:potatis@potatisgrizen.com)
 - Discord - @PotatisGrizen#8661
 
-
-## License
-
-xFun API is under [MIT license](LICENSE).
