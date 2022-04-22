@@ -11,8 +11,8 @@ export class Player_Chat {
   @Column('varchar', { length: 100 })
   World: string;
 
-  @Column('varchar', { length: 100 })
-  Playername: string;
+  @Column('varchar', { length: 100, name: 'Player_Name' })
+  Player_Name: string;
 
   @Column('varchar', { length: 200 })
   Message: string;

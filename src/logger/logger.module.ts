@@ -10,14 +10,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Player_Chat } from '../utils/typeorm/entities/Logger/Player_Chat.entity';
 import { Player_Commands } from '../utils/typeorm/entities/Logger/Player_Commands.entity';
 import { LoggerController } from './controllers/logger.controller';
+import { VentureChat } from '../utils/typeorm/entities/Logger/VentureChat.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature(
-      [Player_Chat, Player_Commands],
-      'loggerConnection',
-    ),
-  ],
+  imports: [TypeOrmModule.forFeature([VentureChat], 'loggerConnection')],
   controllers: [LoggerController],
   providers: [
     {

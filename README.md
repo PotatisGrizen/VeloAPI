@@ -4,7 +4,7 @@ Velocity API
 
 ## Description
 
-Velocitysky.net API for authorization, stats, staffs, etc.
+The Velocity API. For access to auth / stats / logger / Bans / etc
 
 
 ## Installation

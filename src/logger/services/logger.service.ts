@@ -5,60 +5,81 @@ import { Player_Chat } from '../../utils/typeorm/entities/Logger/Player_Chat.ent
 import { Repository } from 'typeorm';
 import { Player_Commands } from '../../utils/typeorm/entities/Logger/Player_Commands.entity';
 import { Request } from 'express';
+import { VentureChat } from '../../utils/typeorm/entities/Logger/VentureChat.entity';
 
 @Injectable()
 export class LoggerService implements ILoggerService {
   constructor(
-    @InjectRepository(Player_Chat, 'loggerConnection')
-    private readonly playerChatRepo: Repository<Player_Chat>,
-    @InjectRepository(Player_Commands, 'loggerConnection')
-    private readonly playerCommandsRepo: Repository<Player_Commands>,
+    @InjectRepository(VentureChat, 'loggerConnection')
+    private readonly ventureRepo: Repository<VentureChat>,
   ) {}
 
-  async getAllPlayerData() {
-    return [
-      ...(await this.playerChatRepo.find()),
-      ...(await this.playerCommandsRepo.find()),
-    ];
+  async getAllPlayerData(req: Request) {
+    const take = 10;
+    const page: number = (req.query.page as unknown as number) || 1;
+    const skip = (page - 1) * take;
+
+    const builder = this.ventureRepo.createQueryBuilder();
+
+    const [result] = await builder.take(take).skip(skip).getManyAndCount();
+
+    return result;
   }
 
-  async getPlayerChat(req: Request): Promise<Player_Chat[]> {
-    const builder = this.playerChatRepo.createQueryBuilder();
-    const query = req.query;
+  async getPlayerChat(req: Request): Promise<VentureChat[]> {
+    const take = 10;
+    const page: number = (req.query.page as unknown as number) || 1;
+    const skip = (page - 1) * take;
 
-    if (query.message) {
-      builder.andWhere('Message LIKE :s', {
-        s: `%${query.message}%`,
-      });
-    }
+    const builder = this.ventureRepo.createQueryBuilder();
 
-    if (query.playername) {
-      builder.andWhere(`Playername LIKE :s`, {
-        s: `%${query.playername}%`,
-      });
-    }
+    const { message, playername } = req.query;
 
-    console.log(builder.getQuery());
-    return await builder.getMany();
+    builder.andWhere('Type LIKE :type', {
+      type: 'Chat',
+    });
+
+    builder.andWhere('Text LIKE :text', {
+      text: `%${(message as string) || ''}%`,
+    });
+
+    builder.andWhere(`Name LIKE :name`, {
+      name: `%${(playername as string) || ''}%`,
+    });
+
+    builder.orderBy('ID', 'DESC');
+
+    const [result] = await builder.take(take).skip(skip).getManyAndCount();
+
+    return result;
   }
 
-  async getPlayerCommands(req: Request): Promise<Player_Commands[]> {
-    const builder = this.playerCommandsRepo.createQueryBuilder();
-    const query = req.query;
+  async getPlayerCommands(req: Request): Promise<VentureChat[]> {
+    const take = 10;
+    const page: number = (req.query.page as unknown as number) || 1;
+    if (isNaN(page)) return;
+    const skip = (page - 1) * take;
 
-    if (query.command) {
-      builder.andWhere('Command LIKE :s', {
-        s: `%${query.command}%`,
-      });
-    }
+    const builder = this.ventureRepo.createQueryBuilder();
 
-    if (query.playername) {
-      builder.andWhere('Playername LIKE :s', {
-        s: `%${query.playername}%`,
-      });
-    }
+    const { command, playername } = req.query;
 
-    console.log(builder.getQuery());
-    return await builder.getMany();
+    builder.andWhere('Type LIKE :type', {
+      type: 'Command',
+    });
+
+    builder.andWhere('Text LIKE :command', {
+      command: `%${(command as string) || ''}%`,
+    });
+
+    builder.andWhere(`Name LIKE :name`, {
+      name: `%${(playername as string) || ''}%`,
+    });
+
+    builder.orderBy('ID', 'DESC');
+
+    const [result] = await builder.take(take).skip(skip).getManyAndCount();
+
+    return result;
   }
 }

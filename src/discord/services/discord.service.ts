@@ -9,4 +9,8 @@ export class DiscordService implements IDiscordService {
     @Inject(SERVICES.DISCORD_HTTP)
     private readonly discordHttpService: IDiscordHttpService,
   ) {}
+
+  async getUserData(accessToken: string) {
+    return await this.discordHttpService.fetchUserData(accessToken);
+  }
 }

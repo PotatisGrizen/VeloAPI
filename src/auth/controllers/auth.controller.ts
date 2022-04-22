@@ -1,9 +1,17 @@
-import { Controller, Get, Inject, Post, Res, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Inject,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { ROUTES, SERVICES } from '../../utils/constants';
 import { AuthenticatedGuard, DiscordAuthGuard } from '../utils/Guards';
 import { AuthUser } from '../../utils/decorators';
 import { User } from '../../utils/typeorm/entities/User.entity';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { IUserService } from '../../user/interfaces/user';
 
 @Controller(ROUTES.AUTH)
@@ -13,12 +21,16 @@ export class AuthController {
   ) {}
   @Get('login')
   @UseGuards(DiscordAuthGuard)
-  login() {} // eslint-disable-line
+  login() {} // eslint-disable-linet
 
   @Get('redirect')
   @UseGuards(DiscordAuthGuard)
   redirect(@Res() res: Response) {
-    res.redirect('http://localhost:3000/zone');
+    res.redirect(
+      process.env.NODE_ENV === 'production'
+        ? 'https://zone.velocitysky.net'
+        : 'http://localhost:3000/zone',
+    );
   }
 
   @Get('status')
@@ -28,5 +40,8 @@ export class AuthController {
   }
 
   @Post('logout')
-  logout() {} // eslint-disable-line
+  logout(@Req() req: Request, @Res() res: Response) {
+    req.logout();
+    res.status(200).send('Logged out');
+  }
 }

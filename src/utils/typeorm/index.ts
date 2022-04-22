@@ -1,11 +1,14 @@
 import { User } from './entities/User.entity';
 import { Session } from './entities/Session.entity';
-import { Player_Chat } from './entities/Logger/Player_Chat.entity';
-import { Player_Commands } from './entities/Logger/Player_Commands.entity';
 import { Bans } from './entities/Bans/Bans.entity';
+import { History } from './entities/Bans/History.entity';
+import { Kicks } from './entities/Bans/Kicks.entity';
+import { Warnings } from './entities/Bans/Warnings.entity';
+import { Mutes } from './entities/Bans/Mutes.entity';
+import { VentureChat } from './entities/Logger/VentureChat.entity';
 
 export const APIentities = [User, Session];
 
-export const Loggerentities = [Player_Chat, Player_Commands];
+export const Loggerentities = [VentureChat];
 
-export const Bansentities = [Bans];
+export const Bansentities = [Bans, History, Kicks, Warnings, Mutes];

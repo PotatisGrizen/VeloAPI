@@ -9,4 +9,13 @@ export class DiscordController {
   constructor(
     @Inject(SERVICES.DISCORD) private readonly discordService: IDiscordService,
   ) {}
+
+  @Get('getUserData')
+  async getUserData(@AuthUser() user: User) {
+    if (!user)
+      return {
+        status: '403',
+      };
+    return await this.discordService.getUserData(user.accessToken);
+  }
 }

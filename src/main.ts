@@ -26,7 +26,7 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: ['https://zone.velocitysky.net'],
+    origin: ['http://localhost:3000', 'https://zone.velocitysky.net'],
     credentials: true,
   });
   app.use(passport.initialize());

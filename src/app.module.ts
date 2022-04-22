@@ -12,7 +12,10 @@ import { BansModule } from './bans/bans.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env.development',
+      envFilePath:
+        process.env.NODE_ENV === 'production'
+          ? '.env.production'
+          : '.env.development',
     }),
     PassportModule.register({ session: true }),
     /**
@@ -28,7 +31,7 @@ import { BansModule } from './bans/bans.module';
       username: process.env.MYSQL_DB_USERNAME,
       password: process.env.MYSQL_DB_PASSWORD,
       database: process.env.MYSQL_DB_DATABASE,
-      synchronize: true, // SET THIS TO FALSE DURING PRODUCTION
+      synchronize: process.env.NODE_ENV != 'production', // SET THIS TO FALSE DURING PRODUCTION
       entities: APIentities,
     }),
     /**
